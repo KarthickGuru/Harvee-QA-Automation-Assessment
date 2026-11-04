@@ -1,0 +1,182 @@
+# SauceDemo – QA Automation Assessment
+
+## 1. Project Overview
+
+This project automates the SauceDemo e-commerce application using **Playwright with TypeScript** and the **Page Object Model (POM)** design pattern.
+
+The objective is to validate critical business functionalities such as user login, product sorting, shopping cart management, checkout, form validation, and access restrictions after logout.
+
+**Application URL:** https://www.saucedemo.com/
+
+**Automation Framework:** Playwright  
+**Programming Language:** TypeScript  
+**Design Pattern:** Page Object Model (POM)  
+**Test Data:** JSON  
+**Reporting:** Playwright HTML and JUnit XML
+
+## 2. Project Structure
+
+```text
+Harvee-QA-Assessment/
+│
+├── Pages/
+│   ├── LoginPage.ts
+│   ├── ProductPage.ts
+│   ├── CartPage.ts
+│   └── CheckoutPage.ts
+│
+├── Config/
+│   └── users.ts
+│
+├── tests/
+│   ├── testdata/
+│   │   └── customerdetails.json
+│   ├── login.spec.ts
+│   ├── products.spec.ts
+│   ├── cart.spec.ts
+│   ├── checkout.spec.ts
+│   └── security.spec.ts
+│
+├── playwright.config.ts
+├── package.json
+├── README.md
+└── AI_USAGE.md
+```
+
+## 3. Prerequisites
+
+The following software is required:
+
+- Node.js and npm
+- Visual Studio Code
+- Playwright
+- A supported browser such as Chromium
+
+## 4. Installation and Setup
+
+**Step 1:** Download or clone the project and open it in VS Code.
+
+**Step 2:** Open the terminal and install the dependencies.
+
+```bash
+npm install
+```
+
+**Step 3:** Install Playwright browsers.
+
+```bash
+npx playwright install
+```
+
+**Step 4:** Verify the configuration.
+
+The application base URL and test credentials are maintained in `playwright.config.ts` and `Config/users.ts`, with environment-variable overrides.
+
+## 5. Test Execution
+
+**Run all automation tests:**
+
+```bash
+npx playwright test
+```
+
+**Run tests in headed mode:**
+
+```bash
+npx playwright test --headed
+```
+
+**Run a specific test case:**
+
+```bash
+npx playwright test --grep "TC11"
+```
+
+**Run checkout test cases:**
+
+```bash
+npx playwright test tests/checkout.spec.ts
+```
+
+**View the HTML test report:**
+
+```bash
+npx playwright show-report
+```
+
+## 6. Manual and Automation Test Case Mapping
+
+The following table maintains traceability between manual test cases and their corresponding automated tests.
+
+| Manual Test Case ID | Test Scenario | Automation Test | Status |
+|---|---|---|---|
+| TC01 | Login with valid credentials | login.spec.ts | Automated |
+| TC02 | Login with locked-out user | login.spec.ts | Automated |
+| TC03 | Login with incorrect password | — | Automated |
+| TC04 | Login with blank required fields | — | Manual only |
+| TC05 | Sort products by name A to Z | products.spec.ts | Automated |
+| TC06 | Sort products by name Z to A | products.spec.ts | Automated |
+| TC07 | Sort products by price low to high | products.spec.ts | Automated |
+| TC08 | Sort products by price high to low | products.spec.ts | Automated |
+| TC09 | Add two products and remove one | cart.spec.ts | Automated |
+| TC10 | Remove product from cart page | — | Manual only |
+| TC11 | Complete checkout and verify order total | checkout.spec.ts | Automated |
+| TC12 | Checkout without first name | checkout.spec.ts (JSON parameterized) | Automated |
+| TC13 | Checkout without last name | checkout.spec.ts (JSON parameterized) | Automated |
+| TC14 | Checkout without postal code | checkout.spec.ts (JSON parameterized) | Automated |
+| TC15 | Cancel checkout from overview | — | Manual only |
+| TC16 | Access Products page after logout | security.spec.ts | Automated |
+| TC17 | Empty cart checkout behavior | — | Manual only |
+| TC18 | Product details verification | — | Manual only |
+| TC19 | Keyboard accessibility | — | Manual only |
+| TC20 | Mobile responsiveness | — | Manual only |
+| TC21 | Cross-browser testing | — | Manual only |
+| TC22 | Usability testing | — | Manual only |
+| TC23 | Direct checkout URL without login | — | Manual only |
+| TC24 | Exploratory testing with problem user | — | Manual only |
+
+**Note:** TC12, TC13 and TC14 are implemented using a single data-driven test structure with JSON test data. Each scenario executes independently.
+
+## 7. Automation Framework Design
+
+The framework follows the Page Object Model design pattern.
+
+- **Page Objects:** Store application locators and reusable actions.
+- **Test Files:** Contain test scenarios and assertions.
+- **Test Data:** Maintained separately in JSON files.
+- **Configuration:** Manages the base URL, browser settings and test credentials.
+- **Assertions:** Validate actual results against expected business requirements.
+
+Each test is designed to execute independently without relying on the execution order of other tests.
+
+Playwright's built-in auto-waiting and locator assertions are used instead of fixed delays.
+
+## 8. Test Reporting and Failure Handling
+
+The framework generates an HTML report and JUnit XML report.
+
+Screenshots are automatically captured when a test fails using:
+
+```typescript
+screenshot: 'only-on-failure'
+```
+
+Playwright traces are retained on failure to support debugging.
+
+**Generate the HTML report:**
+
+```bash
+npx playwright test
+npx playwright show-report
+```
+
+## 9. Scaling the Automation Framework to 200 Test Cases
+
+To scale this framework to 200 automated test cases, I would organize the tests into separate functional modules such as Login, Products, Cart, Checkout, and Security. I would continue using the Page Object Model to maintain reusable locators and methods, reducing code duplication and improving maintainability. Test data would be managed through JSON files and parameterized tests, while Playwright fixtures would handle common setup and teardown operations. Independent tests could execute in parallel to reduce execution time. I would also integrate the automation suite with a CI/CD pipeline using GitHub Actions or Jenkins, maintain HTML and JUnit reports, and use screenshots and traces to investigate failures. Each automated test would retain its corresponding manual test case ID to ensure traceability as the suite grows.
+
+## 10. Conclusion
+
+This automation project demonstrates the implementation of Playwright with TypeScript and the Page Object Model to validate critical e-commerce business workflows.
+
+The framework focuses on reusable code, independent test execution, data-driven testing, reliable assertions, reporting, and maintainability.
+ 

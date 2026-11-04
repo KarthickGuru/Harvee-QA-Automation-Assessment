@@ -1,0 +1,27 @@
+
+[
+  {
+    "id": "TC12",
+    "title": "Checkout without first name",
+    "firstName": "",
+    "lastName": "Test",
+    "postalCode": "600001",
+    "expectedError": "Error: First Name is required"
+  },
+  {
+    "id": "TC13",
+    "title": "Checkout without last name",
+    "firstName": "John",
+    "lastName": "",
+    "postalCode": "600001",
+    "expectedError": "Error: Last Name is required"
+  },
+  {
+    "id": "TC14",
+    "title": "Checkout without postal code",
+    "firstName": "John",
+    "lastName": "Test",
+    "postalCode": "",
+    "expectedError": "Error: Postal Code is required"
+  }
+]
